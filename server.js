@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config({path: './config/.env'});
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('./models/index');
+const db = require('./models');
 
 const app = express();
 
@@ -17,17 +17,20 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-(async () => {
-    await db.sequelize.sync();
-    console.log('Connected successfully to MySQL!');
-})();
+db.sequelize.sync()
+.then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server is running on ${PORT}`)
+    });
+});
 
 app.get('/', (req,res) => {
-    res.json({ message: "Hello Mate good work"})
+    res.json( "Hello Mate good work")
 });
 
 const PORT = process.env.PORT || 8080
 
-app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`)
-});
+const postRouter = require('./routes/user.routes');
+app.use("/login", postRouter);
+
+

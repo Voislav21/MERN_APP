@@ -5,9 +5,6 @@ module.exports = (sequelize, DataTypes) => {
   {
     username: DataTypes.STRING,
     password: DataTypes.STRING
-  },
-  {
-    freezeTableName: true
   });
 
   return User;

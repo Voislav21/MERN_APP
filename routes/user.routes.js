@@ -1,7 +1,19 @@
-/*const express = require ('express');
+const express = require ('express');
 const router = express.Router();
-const authController = require ('../controllers/auth.controller.js');
+const { user } = require ('../models');
 
-router.post("/register", authController.signup);
+router.get("/", async (req,res) => {
+    const allUsers = await user.findAll();
+    res.json(allUsers);
+});
 
-module.exports = router;*/
+router.post("/", async (req,res) => {
+    const login = req.body;
+
+    await user.create(login);
+    res.json(login);
+
+
+});
+
+module.exports = router;
