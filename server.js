@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config({path: './config/.env'});
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('./models');
+const db = require('./models/index.models');
 
 const app = express();
 

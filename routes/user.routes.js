@@ -1,6 +1,5 @@
 const express = require ('express');
 const router = express.Router();
-const { user } = require ('../models');
 
 router.get("/", async (req,res) => {
     const allUsers = await user.findAll();
