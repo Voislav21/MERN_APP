@@ -1,18 +1,9 @@
 const express = require ('express');
 const router = express.Router();
 
-router.get("/", async (req,res) => {
-    const allUsers = await user.findAll();
-    res.json(allUsers);
-});
+const userCtrl = require ('../controllers/uset.ctrl');
 
-router.post("/", async (req,res) => {
-    const login = req.body;
-
-    await user.create(login);
-    res.json(login);
-
-
-});
+router.post("/signup", userCtrl.signup);
+router.post("/login", userCtrl.login);
 
 module.exports = router;

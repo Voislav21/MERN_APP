@@ -30,7 +30,7 @@ app.get('/', (req,res) => {
 
 const PORT = process.env.PORT || 8080
 
-const postRouter = require('./routes/user.routes');
-app.use("/login", postRouter);
+const userRoutes = require('./routes/user.routes');
+app.use("/api", userRoutes);
 
 
