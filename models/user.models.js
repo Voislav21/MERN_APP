@@ -1,34 +1,21 @@
 
-/*module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('user',
-  {
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: { 
-      type: DataTypes.STRING,
-      unique: true
-    },
-    password: DataTypes.STRING
-  });
-
-  return User;
-
-};*/
 
 const { DataTypes } = require('sequelize');
 
-const User = (sequelize) => {
-  const UserModel = sequelize.define('user', {
+const userModel = (sequelize) => {
+  const User = sequelize.define('User', {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: { 
       type: DataTypes.STRING,
       unique: true
     },
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    profilePic: DataTypes.STRING,
+    bio: DataTypes.STRING
   });
 
-  return UserModel;
+  return User;
 };
 
-module.exports = User;
+module.exports = userModel;

@@ -1,16 +1,21 @@
 
-module.exports = (sequelize, DataTypes) => {
-    const Post = sequelize.define('post', {
-        title: DataTypes.STRING,
-        content: DataTypes.TEXT,
-        imageUrl: DataTypes.STRING
-    });
 
-    Post.associate = (models) => {
-        Post.belongsTo(models.user);
-        Post.hasMany(models.comment);
-        Post.hasMany(models.like);
-    };
+const { DataTypes } = require('sequelize');
 
-    return Post;
-}
+const postModel = (sequelize) => {
+  const Posts = sequelize.define('Post', {
+    title: DataTypes.STRING,
+    content: DataTypes.TEXT,
+    imageUrl: DataTypes.STRING
+  });
+
+  Posts.associate = (models) => {
+    Posts.belongsTo(models.User);
+    Posts.hasMany(models.Comment);
+    Posts.hasMany(models.Likes)
+  };
+
+  return Posts;
+};
+
+module.exports = postModel;

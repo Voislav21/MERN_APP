@@ -1,13 +1,18 @@
 
-module.exports = (sequelize, DataTypes) => {
-    const Comment = sequelize.define('comment', {
-        content: DataTypes.TEXT
-    });
 
-    Comment.associate = (models) => {
-        Comment.belongsTo(models.user);
-        Comment.belongsTo(models.post);
-    };
+const { DataTypes } = require('sequelize');
 
-    return Comment;
-}
+const commentModel = (sequelize) => {
+  const Comments = sequelize.define('Comment', {
+    content: DataTypes.TEXT
+  });
+
+  Comments.associate = (models) => {
+    Comments.belongsTo(models.User);
+    Comments.belongsTo(models.Post);
+  };
+
+  return Comments;
+};
+
+module.exports = commentModel;
