@@ -103,5 +103,43 @@ exports.acceptFriendRequest = async (req, res, next) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+exports.declineFriendRequest = async (req, res, next) => {
+  try {
+    const { userId, friendId } = req.params;
+
+    // Check if both users exist
+    const [user, friend] = await Promise.all([
+      User.findByPk(userId),
+      User.findByPk(friendId),
+    ]);
+
+    if (!user || !friend) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Find the friendship request between the users
+    const friendshipRequest = await Friendship.findOne({
+      where: {
+        userId: friend.id,
+        friendId: user.id,
+        status: 'pending',
+      },
+    });
+
+    if (!friendshipRequest) {
+      return res.status(404).json({ error: 'Friendship request not found' });
+    }
+
+    // Delete the friendship request
+    await friendshipRequest.destroy();
+
+    res.status(200).json({ message: 'Friend request declined' });
+  } catch (error) {
+    console.error('Error declining friend request:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
   
 
