@@ -90,3 +90,33 @@ exports.getAllUsers = async (req, res, next) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
+
+  exports.getFriendsList = async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+  
+      // Find the user by their ID
+      const user = await User.findByPk(userId, {
+        include: { 
+          model: User, 
+          as: 'friends', 
+          through: { 
+            where: { status: 'accepted' },
+          },
+         },
+      });
+  
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      // Retrieve the friends list using the association method
+      const friends = user.friends;
+  
+      res.status(200).json({ friends });
+    } catch (error) {
+      console.error('Error retrieving friends list:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  };
+  
