@@ -110,7 +110,7 @@ exports.getAllUsers = async (req, res, next) => {
         return res.status(404).json({ error: 'User not found' });
       }
   
-      // Retrieve the friends list using the association method
+      // Retrieve the friends list
       const friends = user.friends;
   
       res.status(200).json({ friends });
